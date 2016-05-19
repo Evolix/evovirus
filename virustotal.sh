@@ -17,6 +17,9 @@ header=$(mktemp /tmp/virustotal.XXX.tmp)
 # Set to false if you want to keep the virus file.
 removeVirus=true
 
+# Cleaning on exit.
+trap "rm $report $header" EXIT SIGINT
+
 apiReturn() {
 
     header=$1
@@ -64,6 +67,4 @@ else
     echo "No virus detected. Not adding a signature to Evolix database."
 fi
 
-# Cleaning
-rm "$report"
 exit 0
